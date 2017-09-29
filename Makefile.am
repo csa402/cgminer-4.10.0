@@ -4,15 +4,9 @@ ACLOCAL_AMFLAGS = -I m4
 JANSSON_CPPFLAGS= -I$(top_builddir)/compat/jansson-2.9/src -I$(top_srcdir)/compat/jansson-2.9/src
 
 if WANT_USBUTILS
-USBUTILS_CPPFLAGS = `pkg-config libusb-1.0 --libs --cflags`
+USBUTILS_CPPFLAGS = -I$(top_builddir)/compat/libusb-1.0/libusb -I$(top_srcdir)/compat/libusb-1.0/libusb
 else
 USBUTILS_CPPFLAGS =
-endif
-
-if STATIC_CURL
-LIBCURL_CPPFLAGS = -DCURL_STATICLIB
-else
-LIBCURL_CPPFLAGS =
 endif
 
 EXTRA_DIST	= example.conf linux-usb-cgminer \
@@ -24,7 +18,7 @@ EXTRA_DIST	= example.conf linux-usb-cgminer \
 
 SUBDIRS		= lib compat ccan
 
-cgminer_CPPFLAGS = $(PTHREAD_FLAGS) -fno-strict-aliasing $(JANSSON_CPPFLAGS) $(USBUTILS_CPPFLAGS) $(LIBCURL_CPPFLAGS)
+cgminer_CPPFLAGS = $(PTHREAD_FLAGS) -fno-strict-aliasing $(JANSSON_CPPFLAGS) $(USBUTILS_CPPFLAGS)
 
 bin_PROGRAMS	= cgminer
 
